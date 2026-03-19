@@ -1,0 +1,17 @@
+# ─────────────────────────────────────────────────────────────
+#  EcoPlay – Dockerfile.dev
+#  Development server with hot reload (Expo Metro Web)
+# ─────────────────────────────────────────────────────────────
+FROM node:20-alpine
+
+WORKDIR /app
+
+# Install dependencies
+COPY package.json package-lock.json* ./
+RUN npm ci --legacy-peer-deps
+
+# Source is mounted as a volume at runtime (see docker-compose.yml)
+
+EXPOSE 8081
+
+CMD ["npx", "expo", "start", "--web", "--host", "0.0.0.0", "--port", "8081"]
